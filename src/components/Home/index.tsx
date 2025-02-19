@@ -1,11 +1,13 @@
-import { Header } from "./components/Header";
-import { Hero } from "./components/Hero";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "./components/AppSidebar";
 
 export const Home = () => {
   return (
-    <main className="my-8 max-w-6xl mx-auto flex flex-col space-y-44">
-      <Header />
-      <Hero />
-    </main>
+    <SidebarProvider>
+      <AppSidebar />
+      <main>
+        <SidebarTrigger />
+      </main>
+    </SidebarProvider>
   );
 };

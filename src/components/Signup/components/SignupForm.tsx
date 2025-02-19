@@ -55,7 +55,7 @@ export const SignupForm = () => {
     if (signupPassword?.length < 5) {
       setPasswordError(true);
       setPasswordErrorMsg(
-        "It has been found that longer passwords are safe. Please set a password longer than 5 characters."
+        "Longer passwords are safe. Please set a password longer than 5 characters."
       );
       return;
     }
