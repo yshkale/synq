@@ -30,22 +30,34 @@ import {
   BadgeDollarSignIcon,
   LogOutIcon,
 } from "lucide-react";
+import { useLocation, useNavigate } from "react-router";
+import { cn } from "@/lib/utils";
 
 export const AppSidebar = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const items = [
     {
       title: "Inbox",
       icon: Inbox,
+      url: "/",
     },
     {
       title: "Today",
       icon: CalendarClock,
+      url: "/today",
     },
     {
       title: "Upcoming",
       icon: CalendarDays,
+      url: "/upcoming",
     },
   ];
+
+  const handleMenuClick = (url: string) => {
+    navigate(url);
+  };
 
   return (
     <Sidebar>
@@ -76,8 +88,17 @@ export const AppSidebar = () => {
           <SidebarGroupContent>
             <SidebarMenu>
               {items?.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton>
+                <SidebarMenuItem
+                  key={item.title}
+                  onClick={() => handleMenuClick(item.url)}
+                >
+                  <SidebarMenuButton
+                    className={cn(
+                      "bg-none",
+                      pathname === item.url &&
+                        "bg-orange-100 text-orange-700 hover:bg-orange-100 hover:text-orange-700"
+                    )}
+                  >
                     <item.icon className="w-4 h-4" /> {item.title}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
