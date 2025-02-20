@@ -32,10 +32,13 @@ import {
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
+import { triggerAddTaskDialog } from "@/components/Tasks/tasks.slice";
+import { useDispatch } from "react-redux";
 
 export const AppSidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const items = [
     {
@@ -59,6 +62,10 @@ export const AppSidebar = () => {
     navigate(url);
   };
 
+  const handleAddTaskButton = () => {
+    dispatch(triggerAddTaskDialog(true));
+  };
+
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-neutral-200">
@@ -73,7 +80,10 @@ export const AppSidebar = () => {
 
       <SidebarContent>
         <SidebarGroup className="pt-4 pb-1 space-y-2 px-3">
-          <Button className="bg-orange-600 hover:bg-orange-500">
+          <Button
+            className="bg-orange-600 hover:bg-orange-500"
+            onClick={() => handleAddTaskButton()}
+          >
             <PlusCircleIcon />
             Add Task
           </Button>
