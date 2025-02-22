@@ -30,6 +30,7 @@ import {
   BadgeDollarSignIcon,
   LogOutIcon,
   GitMergeIcon,
+  CircleCheck,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
@@ -59,6 +60,11 @@ export const AppSidebar = () => {
       title: "Upcoming",
       icon: CalendarDays,
       url: "/upcoming",
+    },
+    {
+      title: "Completed",
+      icon: CircleCheck,
+      url: "/completed",
     },
   ];
 

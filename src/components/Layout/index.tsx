@@ -4,6 +4,7 @@ import { AppSidebar } from "./components/AppSidebar";
 import { AddTaskDialog } from "../Tasks/components/AddTaskDialog";
 import { useSelector } from "react-redux";
 import { SearchDialog } from "../SearchDialog";
+import { EditDialog } from "../EditDialog";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const showAddTaskDialog = useSelector(
@@ -11,6 +12,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   );
   const showSearchDialog = useSelector(
     (state: any) => state.tasks.showSearchDialog
+  );
+  const showEditDialog = useSelector(
+    (state: any) => state.tasks.showEditDialog
   );
   return (
     <SidebarProvider>
@@ -20,6 +24,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         {children}
         {showAddTaskDialog && <AddTaskDialog />}
         {showSearchDialog && <SearchDialog />}
+        {showEditDialog && <EditDialog />}
       </main>
     </SidebarProvider>
   );

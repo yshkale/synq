@@ -5,6 +5,8 @@ const initialState: any = {
   showAddNewTaskDialog: false,
   //
   showSearchDialog: false,
+  //
+  showEditDialog: false,
 };
 
 const slice = createSlice({
@@ -18,9 +20,17 @@ const slice = createSlice({
     triggerSearchDialog: (state, action: PayloadAction<boolean>) => {
       state.showSearchDialog = action.payload;
     },
+    //
+    triggerShowEditDialog: (state, action: PayloadAction<boolean>) => {
+      state.showEditDialog = action.payload;
+    },
   },
 });
 
-export const { triggerAddTaskDialog, triggerSearchDialog } = slice.actions;
+export const {
+  triggerAddTaskDialog,
+  triggerSearchDialog,
+  triggerShowEditDialog,
+} = slice.actions;
 
 export const TasksReducer = slice.reducer;
