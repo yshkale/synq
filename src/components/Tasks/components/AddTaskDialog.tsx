@@ -1,4 +1,10 @@
-import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useDispatch } from "react-redux";
 import { triggerAddTaskDialog } from "../tasks.slice";
 import { Button } from "@/components/ui/button";
@@ -19,15 +25,19 @@ export const AddTaskDialog = () => {
   return (
     <Dialog defaultOpen={true} onOpenChange={handleOpenChange}>
       <DialogContent className="p-0">
-        <div className="flex flex-col space-y-2 px-6 pt-6 pb-5">
-          <input
-            className="focus-visible:outline-none placeholder:text-lg font-semibold"
-            placeholder="Title"
-          />
-          <input
-            className="focus-visible:outline-none placeholder:text-sm text-sm text-neutral-700"
-            placeholder="Add description..."
-          />
+        <div className="flex flex-col space-y-3 px-6 pt-6 pb-5">
+          <DialogTitle>
+            <input
+              className="w-full focus-visible:outline-none placeholder:text-lg font-semibold"
+              placeholder="Title"
+            />
+          </DialogTitle>
+          <DialogDescription>
+            <input
+              className="w-full focus-visible:outline-none placeholder:text-sm text-sm text-neutral-600"
+              placeholder="Add description..."
+            />
+          </DialogDescription>
         </div>
 
         <div className="px-6 flex space-x-2">

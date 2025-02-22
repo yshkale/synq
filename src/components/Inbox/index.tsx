@@ -1,3 +1,4 @@
+import { CheckCheckIcon } from "lucide-react";
 import { TaskOverview } from "../TaskOverview";
 
 export const Inbox = () => {
@@ -39,6 +40,10 @@ export const Inbox = () => {
     <main className="flex justify-center items-center pt-20 mr-20">
       <section className="w-full max-w-xl">
         <h1 className="text-2xl font-semibold text-neutral-500">Inbox</h1>
+        <div className="flex items-center space-x-1.5 pt-1">
+          <CheckCheckIcon size={16} className="text-neutral-500" />
+          <p className="text-xs text-neutral-500">4 Tasks</p>
+        </div>
 
         <div className="py-8 flex flex-col space-y-4">
           {tasks.map((task) => {

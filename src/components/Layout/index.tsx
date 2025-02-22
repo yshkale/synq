@@ -3,10 +3,14 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./components/AppSidebar";
 import { AddTaskDialog } from "../Tasks/components/AddTaskDialog";
 import { useSelector } from "react-redux";
+import { SearchDialog } from "../SearchDialog";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const showAddTaskDialog = useSelector(
     (state: any) => state.tasks.showAddNewTaskDialog
+  );
+  const showSearchDialog = useSelector(
+    (state: any) => state.tasks.showSearchDialog
   );
   return (
     <SidebarProvider>
@@ -15,6 +19,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <SidebarTrigger />
         {children}
         {showAddTaskDialog && <AddTaskDialog />}
+        {showSearchDialog && <SearchDialog />}
       </main>
     </SidebarProvider>
   );
