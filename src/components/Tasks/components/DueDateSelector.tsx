@@ -36,7 +36,6 @@ export const DueDateSelector = ({ className }: any) => {
           selected={date}
           onSelect={setDate}
           fromDate={new Date()}
-          initialFocus
         />
       </PopoverContent>
     </Popover>
