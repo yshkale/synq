@@ -29,8 +29,8 @@ import {
   SettingsIcon,
   BadgeDollarSignIcon,
   LogOutIcon,
-  GitMergeIcon,
   CircleCheck,
+  SproutIcon,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
@@ -144,7 +144,7 @@ export const AppSidebar = () => {
               {projects?.map((project, index) => (
                 <SidebarMenuItem key={index}>
                   <SidebarMenuButton>
-                    <GitMergeIcon className="w-4 h-4 text-lime-600" /> {project}
+                    <SproutIcon className="w-4 h-4 text-lime-600" /> {project}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
