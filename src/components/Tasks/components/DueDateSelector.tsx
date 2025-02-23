@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { format } from "date-fns";
 import { CalendarPlus } from "lucide-react";
 
@@ -11,7 +12,7 @@ import {
 } from "@/components/ui/popover";
 import { useState } from "react";
 
-export const DueDateSelector = () => {
+export const DueDateSelector = ({ className }: any) => {
   const [date, setDate] = useState<Date>();
 
   return (
@@ -21,7 +22,8 @@ export const DueDateSelector = () => {
           variant={"outline"}
           className={cn(
             "w-44 justify-start text-left font-normal text-xs",
-            !date && "text-muted-foreground"
+            !date && "text-muted-foreground",
+            className
           )}
         >
           <CalendarPlus className="text-neutral-600" />
