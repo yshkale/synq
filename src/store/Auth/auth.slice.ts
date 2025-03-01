@@ -66,7 +66,7 @@ const slice = createSlice({
       }
     );
     builder.addCase(Actions.loginUser + AsyncState.REJECTED, (state) => {
-      state.loginApiResponse = AsyncState.REJECTED;
+      state.loginApiStatus = AsyncState.REJECTED;
     });
 
     //signup builders

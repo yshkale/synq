@@ -51,7 +51,7 @@ export const AppSidebar = () => {
   const { logout } = useAuth();
 
   const userName = useSelector(
-    (state: any) => state.auth.loginApiResponse?.name
+    (state: any) => state.tasks.allTasks?.user?.name
   );
 
   const items = [
@@ -104,7 +104,7 @@ export const AppSidebar = () => {
             src={`https://avatar.vercel.sh/${userName}`}
             className="w-6 h-6 rounded-full"
           />
-          <p className="font-semibold text-sm">{userName || "User"}</p>
+          <p className="font-semibold text-sm">{userName}</p>
         </div>
       </SidebarHeader>
 

@@ -10,10 +10,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const DueDateSelector = ({ className }: any) => {
+export const DueDateSelector = ({
+  value,
+  handleAddTaskData,
+  className,
+}: any) => {
   const [date, setDate] = useState<Date>();
+
+  useEffect(() => {
+    if (date) {
+      handleAddTaskData("dueDate", date);
+    }
+  }, [date]);
 
   return (
     <Popover>

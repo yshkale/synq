@@ -11,7 +11,7 @@ export interface SignupPayload {
 
 export const loginUser = async (payload: LoginPayload) => {
   try {
-    const apiUrl = `${import.meta.env.VITE_API_URL}/api/v1/users/login`;
+    const apiUrl = `${import.meta.env.VITE_API_URL}/users/login`;
 
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -36,7 +36,7 @@ export const loginUser = async (payload: LoginPayload) => {
 
 export const signupUser = async (payload: SignupPayload) => {
   try {
-    const apiUrl = `${import.meta.env.VITE_API_URL}/api/v1/users/signup`;
+    const apiUrl = `${import.meta.env.VITE_API_URL}/users/signup`;
 
     const response = await fetch(apiUrl, {
       method: "POST",
