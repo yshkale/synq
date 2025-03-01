@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AsyncState } from "@/helper/constants";
+import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Actions } from "./auth.saga";
 
 const initialState: any = {
   //login
@@ -8,6 +10,9 @@ const initialState: any = {
     password: "",
   },
 
+  loginApiResponse: null,
+  loginApiStatus: AsyncState.IDLE,
+
   //signup
   signupUserData: {
     name: "",
@@ -15,12 +20,17 @@ const initialState: any = {
     password: "",
     confirmPassword: "",
   },
+
+  signupApiResponse: null,
+  signupApiStatus: AsyncState.IDLE,
 };
 
 const slice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    reset: () => initialState,
+
     //login
     addLoginEmail: (state, action: PayloadAction<string>) => {
       state.loginUserData.email = action.payload;
@@ -43,9 +53,45 @@ const slice = createSlice({
       state.signupUserData.confirmPassword = action.payload;
     },
   },
+  extraReducers(builder) {
+    //login builders
+    builder.addCase(Actions.loginUser + AsyncState.PENDING, (state) => {
+      state.loginApiStatus = AsyncState.PENDING;
+    });
+    builder.addCase(
+      Actions.loginUser + AsyncState.FULFILLED,
+      (state, action: PayloadAction<any>) => {
+        state.loginApiResponse = action.payload;
+        state.loginApiStatus = AsyncState.FULFILLED;
+      }
+    );
+    builder.addCase(Actions.loginUser + AsyncState.REJECTED, (state) => {
+      state.loginApiResponse = AsyncState.REJECTED;
+    });
+
+    //signup builders
+    builder.addCase(Actions.signupUser + AsyncState.PENDING, (state) => {
+      state.signupApiStatus = AsyncState.PENDING;
+    });
+    builder.addCase(
+      Actions.signupUser + AsyncState.FULFILLED,
+      (state, action: PayloadAction<any>) => {
+        state.signupApiResponse = action.payload;
+        state.signupApiStatus = AsyncState.FULFILLED;
+      }
+    );
+    builder.addCase(Actions.signupUser + AsyncState.REJECTED, (state) => {
+      state.signupApiStatus = AsyncState.REJECTED;
+    });
+  },
 });
 
+export const loginUser = createAction<any>(Actions.loginUser);
+export const signupUser = createAction<any>(Actions.signupUser);
+
 export const {
+  reset,
+
   //login
   addLoginEmail,
   addLoginPassword,

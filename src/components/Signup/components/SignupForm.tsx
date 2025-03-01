@@ -1,19 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/AuthContext";
+import { AsyncState } from "@/helper/constants";
 import {
   addSignupConfirmPassword,
   addSignupEmail,
   addSignupName,
   addSignupPassword,
+  signupUser,
 } from "@/store/Auth/auth.slice";
-import { useState } from "react";
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 export const SignupForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { login } = useAuth();
 
   const signupName = useSelector(
     (state: any) => state.auth.signupUserData?.name
@@ -27,6 +32,10 @@ export const SignupForm = () => {
   const signupConfirmPassword = useSelector(
     (state: any) => state.auth.signupUserData?.confirmPassword
   );
+  const authToken = useSelector(
+    (state: any) => state.auth.signupApiResponse?.token
+  );
+  const signupStatus = useSelector((state: any) => state.auth?.signupApiStatus);
 
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
@@ -74,7 +83,24 @@ export const SignupForm = () => {
     validatePassword();
 
     if (passwordError) return;
+
+    dispatch(
+      signupUser({
+        name: signupName,
+        email: signupEmail,
+        password: signupPassword,
+      })
+    );
   };
+
+  useEffect(() => {
+    if (authToken) {
+      login(authToken);
+      navigate("/");
+    }
+  }, [authToken, login, navigate]);
+
+  console.log(signupStatus);
 
   return (
     <section className="px-10 py-6 w-1/2 h-screen">
@@ -136,8 +162,16 @@ export const SignupForm = () => {
             <p className="text-xs text-red-700 mt-3">{passwordErrorMsg}</p>
           )}
 
-          <Button className="w-full mt-6" type="submit">
-            Continue
+          <Button
+            className="w-full mt-6"
+            type="submit"
+            disabled={signupStatus === AsyncState.PENDING}
+          >
+            {signupStatus === AsyncState.PENDING ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              "Continue"
+            )}
           </Button>
         </form>
       </div>

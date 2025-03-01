@@ -7,20 +7,33 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { addLoginEmail, addLoginPassword } from "@/store/Auth/auth.slice";
+import { useAuth } from "@/context/AuthContext";
+import { AsyncState } from "@/helper/constants";
+import {
+  addLoginEmail,
+  addLoginPassword,
+  loginUser,
+} from "@/store/Auth/auth.slice";
+import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { login } = useAuth();
 
   const loginEmail = useSelector(
-    (state: any) => state.auth.userLoginData?.email
+    (state: any) => state.auth.loginUserData?.email
   );
   const loginPassword = useSelector(
-    (state: any) => state.auth.userLoginData?.password
+    (state: any) => state.auth.loginUserData?.password
   );
+  const authToken = useSelector(
+    (state: any) => state.auth.loginApiResponse?.token
+  );
+  const loginStatus = useSelector((state: any) => state.auth.loginApiStatus);
 
   const handleChange = (e: any, type: string) => {
     switch (type) {
@@ -36,7 +49,20 @@ export const LoginForm = () => {
 
   const handleLogin = (e: any) => {
     e.preventDefault();
+    dispatch(
+      loginUser({
+        email: loginEmail,
+        password: loginPassword,
+      })
+    );
   };
+
+  useEffect(() => {
+    if (authToken) {
+      login(authToken);
+      navigate("/");
+    }
+  }, [authToken, login, navigate]);
 
   return (
     <Card className="lg:w-96">
@@ -77,7 +103,11 @@ export const LoginForm = () => {
 
           <CardFooter className="flex flex-col px-0 space-y-3 pb-0 mt-4">
             <Button type="submit" className="w-full mt-6">
-              Log in
+              {loginStatus === AsyncState.PENDING ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Log in"
+              )}
             </Button>
             <div className="text-xs flex space-x-1 text-neutral-500">
               <p>Don&apos;t have an account?</p>

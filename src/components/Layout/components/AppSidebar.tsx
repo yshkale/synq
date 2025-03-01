@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -38,12 +39,20 @@ import {
   triggerAddTaskDialog,
   triggerSearchDialog,
 } from "@/components/Tasks/tasks.slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "@/context/AuthContext";
+import { reset } from "@/store/Auth/auth.slice";
 
 export const AppSidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+
+  const { logout } = useAuth();
+
+  const userName = useSelector(
+    (state: any) => state.auth.loginApiResponse?.name
+  );
 
   const items = [
     {
@@ -82,15 +91,20 @@ export const AppSidebar = () => {
     dispatch(triggerSearchDialog(true));
   };
 
+  const handleLogout = () => {
+    dispatch(reset());
+    logout();
+  };
+
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-neutral-200">
         <div className="flex items-center space-x-2 px-2 py-1">
           <img
-            src="https://avatar.vercel.sh/rauchg"
+            src={`https://avatar.vercel.sh/${userName}`}
             className="w-6 h-6 rounded-full"
           />
-          <p className="font-semibold text-sm">yash</p>
+          <p className="font-semibold text-sm">{userName || "User"}</p>
         </div>
       </SidebarHeader>
 
@@ -175,7 +189,7 @@ export const AppSidebar = () => {
                   <BadgeDollarSignIcon />
                   <span>Billing</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                   <LogOutIcon />
                   <span>Log out</span>
                 </DropdownMenuItem>

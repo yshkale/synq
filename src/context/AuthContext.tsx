@@ -22,8 +22,10 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   const logout = () => {
+    Cookies.remove("authToken", {
+      path: "",
+    });
     setUserToken(null);
-    Cookies.remove("authToken");
   };
 
   return (
