@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { CalendarPlus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -17,13 +17,20 @@ export const DueDateSelector = ({
   handleAddTaskData,
   className,
 }: any) => {
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<any>();
 
   useEffect(() => {
     if (date) {
       handleAddTaskData("dueDate", date);
     }
   }, [date]);
+
+  useEffect(() => {
+    if (value) {
+      const date = parseISO(value);
+      setDate(date);
+    }
+  }, [value]);
 
   return (
     <Popover>

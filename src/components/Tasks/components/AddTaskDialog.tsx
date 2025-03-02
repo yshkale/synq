@@ -18,12 +18,19 @@ import { PrioritySelector } from "./PrioritySelector";
 import { ProjectSelector } from "./ProjectSelector";
 import { LabelSelector } from "./LabelSelector";
 import { DueDateSelector } from "./DueDateSelector";
+import { formatISO } from "date-fns";
+import { useEffect } from "react";
+import { AsyncState } from "@/helper/constants";
+import { Loader2 } from "lucide-react";
 
 export const AddTaskDialog = () => {
   const dispatch = useDispatch();
 
   const createTaskUserData = useSelector(
     (state: any) => state.tasks.createTaskUserData
+  );
+  const createTaskApiStatus = useSelector(
+    (state: any) => state.tasks.createTaskApiStatus
   );
 
   const handleOpenChange = (open: boolean) => {
@@ -33,14 +40,34 @@ export const AddTaskDialog = () => {
   };
 
   const handleAddTaskData = (type: string, value: string) => {
-    dispatch(addTaskUserData({ type, value }));
+    if (type === "dueDate") {
+      const date = new Date(value);
+      const isoDate = formatISO(date);
+      return dispatch(
+        addTaskUserData({
+          type,
+          value: isoDate,
+        })
+      );
+    }
+    dispatch(
+      addTaskUserData({
+        type,
+        value,
+      })
+    );
   };
 
   const handleCreateTask = () => {
     dispatch(createTask(createTaskUserData));
-    dispatch(getAllTasks());
-    dispatch(triggerAddTaskDialog(false));
   };
+
+  useEffect(() => {
+    if (createTaskApiStatus === AsyncState.FULFILLED) {
+      dispatch(getAllTasks());
+      dispatch(triggerAddTaskDialog(false));
+    }
+  }, [createTaskApiStatus]);
 
   return (
     <Dialog defaultOpen={true} onOpenChange={handleOpenChange}>
@@ -50,7 +77,7 @@ export const AddTaskDialog = () => {
             <input
               className="w-full focus-visible:outline-none placeholder:text-lg font-semibold"
               placeholder="Title"
-              value={createTaskUserData?.title}
+              value={createTaskUserData?.title || ""}
               onChange={(e) => handleAddTaskData("title", e.target.value)}
               required
             />
@@ -59,7 +86,7 @@ export const AddTaskDialog = () => {
             <input
               className="w-full focus-visible:outline-none placeholder:text-sm text-sm text-neutral-600"
               placeholder="Add description..."
-              value={createTaskUserData?.description}
+              value={createTaskUserData?.description || ""}
               onChange={(e) => handleAddTaskData("description", e.target.value)}
             />
           </DialogDescription>
@@ -90,7 +117,11 @@ export const AddTaskDialog = () => {
               className="bg-orange-600 hover:bg-orange-700"
               onClick={handleCreateTask}
             >
-              Create task
+              {createTaskApiStatus === AsyncState.PENDING ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Create task"
+              )}
             </Button>
           </div>
         </DialogFooter>

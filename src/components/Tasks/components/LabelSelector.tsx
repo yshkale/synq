@@ -8,21 +8,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CheckCircle2, TagIcon, TagsIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const LabelSelector = (props: any) => {
   const [labels, setLabels] = useState(["concept", "planning", "important"]);
   const [newLabel, setNewLabel] = useState("");
-  const [selectedLabels, setSelectedLabels] = useState([]);
 
   const handleLabelSelection = (checked: boolean, label: string) => {
-    setSelectedLabels((prev: any) => {
-      if (checked) {
-        return [...prev, label];
-      } else {
-        return prev.filter((item: any) => item !== label);
-      }
-    });
+    if (checked) {
+      return props.handleAddTaskData("labels", [...props.value, label]);
+    } else {
+      const newLabels = props.value?.filter((item: any) => item !== label);
+      props.handleAddTaskData("labels", newLabels);
+    }
   };
 
   const handleAddLabel = (newLabel: string) => {
@@ -33,15 +31,11 @@ export const LabelSelector = (props: any) => {
     }
   };
 
-  useEffect(() => {
-    props.handleAddTaskData("labels", selectedLabels);
-  }, [selectedLabels]);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-1 text-xs text-neutral-600 border border-neutral-200 bg-neutral-100 rounded-md px-2 py-1">
         <TagsIcon size={14} /> Label{" "}
-        {selectedLabels?.length > 0 && `(${selectedLabels.length})`}
+        {props.value?.length > 0 && `(${props.value?.length})`}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel className="flex justify-between items-center">

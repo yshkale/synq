@@ -34,6 +34,7 @@ export const Inbox = () => {
                 title={task.title}
                 description={task.description}
                 dueDate={task.dueDate}
+                status={task.completed}
               />
             );
           })}
