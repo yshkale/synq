@@ -42,7 +42,7 @@ export const TaskOverview = (props: any) => {
   return (
     <div
       key={props.id}
-      className="flex items-start space-x-3 border-b border-neutral-200 px-2 pb-2 cursor-pointer"
+      className="flex items-start space-x-3 border-b border-neutral-200 px-2 pb-3 cursor-pointer"
     >
       <Checkbox
         className="mt-1 rounded-full data-[state=checked]:bg-orange-600 data-[state=checked]:border-orange-600"
@@ -50,7 +50,7 @@ export const TaskOverview = (props: any) => {
         onCheckedChange={handleCheckedChange}
       />
       <div
-        className="flex flex-col gap-0"
+        className="flex flex-col gap-0 w-full"
         onClick={() => handleOnClick(props.id)}
       >
         <h3 className="font-semibold text-neutral-800">{props.title}</h3>

@@ -36,6 +36,8 @@ const initialState: any = {
   //
   deleteTaskResponse: null,
   deleteTaskApiStatus: AsyncState.IDLE,
+  //
+  searchQuery: "",
 };
 
 const slice = createSlice({
@@ -77,6 +79,11 @@ const slice = createSlice({
     resetDeleteTask: (state) => {
       state.deleteTaskResponse = null;
       state.deleteTaskApiStatus = AsyncState.IDLE;
+    },
+    //
+    handleSearchInput: (state, action: PayloadAction<string>) => {
+      const normalizedQuery = action.payload?.toLowerCase()?.trim();
+      state.searchQuery = normalizedQuery;
     },
   },
   extraReducers(builder) {
@@ -170,6 +177,7 @@ export const {
   updateTaskUserData,
   resetUpdateTask,
   resetDeleteTask,
+  handleSearchInput,
 } = slice.actions;
 
 export const TasksReducer = slice.reducer;

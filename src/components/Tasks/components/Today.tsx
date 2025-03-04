@@ -1,32 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { isSameDay, parseISO } from "date-fns";
 import { CheckCheckIcon } from "lucide-react";
-import { TaskOverview } from "../Tasks/components/TaskOverview";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllTasks } from "../Tasks/tasks.slice";
+import { useSelector } from "react-redux";
+import { TaskOverview } from "./TaskOverview";
 
-export const Inbox = () => {
-  const dispatch = useDispatch();
+export const Today = () => {
+  const tasks = useSelector((state: any) => state.tasks.allTasks?.tasks);
 
-  const allTasks = useSelector((state: any) => state.tasks.allTasks?.tasks);
+  const tasksDueToday = tasks?.filter((task: any) => {
+    if (!task.dueDate) return false;
 
-  useEffect(() => {
-    dispatch(getAllTasks());
-  }, []);
+    const taskDueDate = parseISO(task.dueDate);
+    const today = new Date();
+
+    return isSameDay(taskDueDate, today);
+  });
 
   return (
     <main className="flex justify-center items-center pt-20 mr-20">
       <section className="w-full max-w-xl">
-        <h1 className="text-2xl font-semibold text-neutral-500">Inbox</h1>
+        <h1 className="text-2xl font-semibold text-neutral-500">Today</h1>
         <div className="flex items-center space-x-1.5 pt-1">
           <CheckCheckIcon size={16} className="text-neutral-500" />
           <p className="text-xs text-neutral-500">
-            {allTasks?.length || 0} Tasks
+            {tasksDueToday?.length || 0} Tasks
           </p>
         </div>
 
         <div className="py-8 flex flex-col space-y-4">
-          {allTasks?.map((task: any) => {
+          {tasksDueToday?.map((task: any) => {
             return (
               <TaskOverview
                 key={task._id}

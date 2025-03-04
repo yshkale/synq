@@ -114,7 +114,7 @@ export const AddTaskDialog = () => {
               handleAddTaskData={handleAddTaskData}
             />
             <Button
-              className="bg-orange-600 hover:bg-orange-700"
+              className="bg-orange-600 hover:bg-orange-700 w-32"
               onClick={handleCreateTask}
             >
               {createTaskApiStatus === AsyncState.PENDING ? (
