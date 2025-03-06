@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { isAfter, parseISO, startOfDay } from "date-fns";
 import { CheckCheckIcon } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TaskOverview } from "./TaskOverview";
+import { getAllTasks } from "../tasks.slice";
+import { useEffect } from "react";
 
 export const Upcoming = () => {
+  const dispatch = useDispatch();
+
   const tasks = useSelector((state: any) => state.tasks.allTasks?.tasks);
 
   const tasksUpcoming = tasks?.filter((task: any) => {
@@ -15,6 +19,10 @@ export const Upcoming = () => {
 
     return isAfter(taskDueDate, today);
   });
+
+  useEffect(() => {
+    dispatch(getAllTasks());
+  }, []);
 
   return (
     <main className="flex justify-center items-center pt-20 mr-20">

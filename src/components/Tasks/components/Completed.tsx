@@ -1,12 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CheckCheckIcon } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TaskOverview } from "./TaskOverview";
+import { useEffect } from "react";
+import { getAllTasks } from "../tasks.slice";
 
 export const Completed = () => {
+  const dispatch = useDispatch();
+
   const tasks = useSelector((state: any) => state.tasks.allTasks?.tasks);
 
   const tasksCompleted = tasks?.filter((task: any) => task.completed);
+
+  useEffect(() => {
+    dispatch(getAllTasks());
+  }, []);
 
   return (
     <main className="flex justify-center items-center pt-20 mr-20">

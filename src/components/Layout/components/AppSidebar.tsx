@@ -77,7 +77,7 @@ export const AppSidebar = () => {
     },
   ];
 
-  const projects = ["Engineering", "Design", "Marketing"];
+  const projects = useSelector((state: any) => state.tasks?.allTasks?.projects);
 
   const handleMenuClick = (url: string) => {
     navigate(url);
@@ -151,20 +151,22 @@ export const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup className="pt-0">
-          <SidebarGroupLabel>Projects</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {projects?.map((project, index) => (
-                <SidebarMenuItem key={index}>
-                  <SidebarMenuButton>
-                    <SproutIcon className="w-4 h-4 text-lime-600" /> {project}
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {projects?.length > 0 && (
+          <SidebarGroup className="pt-0">
+            <SidebarGroupLabel>Projects</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {projects?.map((project: string, index: number) => (
+                  <SidebarMenuItem key={index}>
+                    <SidebarMenuButton>
+                      <SproutIcon className="w-4 h-4 text-lime-600" /> {project}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       <SidebarFooter>
