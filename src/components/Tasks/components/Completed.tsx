@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TaskOverview } from "./TaskOverview";
 import { useEffect } from "react";
 import { getAllTasks } from "../tasks.slice";
+import { DoYoga } from "./DoYoga";
 
 export const Completed = () => {
   const dispatch = useDispatch();
@@ -27,20 +28,24 @@ export const Completed = () => {
           </p>
         </div>
 
-        <div className="py-8 flex flex-col space-y-4">
-          {tasksCompleted?.map((task: any) => {
-            return (
-              <TaskOverview
-                key={task._id}
-                id={task._id}
-                title={task.title}
-                description={task.description}
-                dueDate={task.dueDate}
-                status={task.completed}
-              />
-            );
-          })}
-        </div>
+        {tasksCompleted?.length > 0 ? (
+          <div className="py-8 flex flex-col space-y-4">
+            {tasksCompleted?.map((task: any) => {
+              return (
+                <TaskOverview
+                  key={task._id}
+                  id={task._id}
+                  title={task.title}
+                  description={task.description}
+                  dueDate={task.dueDate}
+                  status={task.completed}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <DoYoga />
+        )}
       </section>
     </main>
   );
