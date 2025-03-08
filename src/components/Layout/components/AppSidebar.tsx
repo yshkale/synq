@@ -42,6 +42,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "@/context/AuthContext";
 import { reset } from "@/store/Auth/auth.slice";
+import { AsyncState } from "@/helper/constants";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const AppSidebar = () => {
   const navigate = useNavigate();
@@ -77,6 +79,9 @@ export const AppSidebar = () => {
     },
   ];
 
+  const allTasksApiStatus = useSelector(
+    (state: any) => state.tasks?.tasksApiStatus
+  );
   const projects = useSelector((state: any) => state.tasks?.allTasks?.projects);
 
   const handleMenuClick = (url: string) => {
@@ -108,7 +113,11 @@ export const AppSidebar = () => {
             src={`https://avatar.vercel.sh/${userName}`}
             className="w-6 h-6 rounded-full"
           />
-          <p className="font-semibold text-sm">{userName}</p>
+          {allTasksApiStatus === AsyncState.FULFILLED ? (
+            <p className="font-semibold text-sm">{userName}</p>
+          ) : (
+            <Skeleton className="w-full h-6" />
+          )}
         </div>
       </SidebarHeader>
 
