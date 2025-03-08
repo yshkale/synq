@@ -96,6 +96,10 @@ export const AppSidebar = () => {
     logout();
   };
 
+  const handleProjectClick = (project: string) => {
+    navigate(`/project/${project}`);
+  };
+
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-neutral-200">
@@ -157,7 +161,10 @@ export const AppSidebar = () => {
             <SidebarGroupContent>
               <SidebarMenu>
                 {projects?.map((project: string, index: number) => (
-                  <SidebarMenuItem key={index}>
+                  <SidebarMenuItem
+                    key={index}
+                    onClick={() => handleProjectClick(project)}
+                  >
                     <SidebarMenuButton>
                       <SproutIcon className="w-4 h-4 text-lime-600" /> {project}
                     </SidebarMenuButton>

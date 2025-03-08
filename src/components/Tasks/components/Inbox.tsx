@@ -11,7 +11,7 @@ export const Inbox = () => {
   const allTasks = useSelector((state: any) => state.tasks.allTasks?.tasks);
 
   useEffect(() => {
-    dispatch(getAllTasks());
+    dispatch(getAllTasks({}));
   }, []);
 
   return (

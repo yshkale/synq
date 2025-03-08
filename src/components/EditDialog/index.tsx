@@ -131,7 +131,7 @@ export const EditDialog = () => {
       updateTaskStatus === AsyncState.FULFILLED ||
       deleteTaskStatus === AsyncState.FULFILLED
     ) {
-      dispatch(getAllTasks());
+      dispatch(getAllTasks({}));
       dispatch(triggerShowEditDialog(false));
       dispatch(resetUpdateTask());
       dispatch(resetDeleteTask());

@@ -21,7 +21,7 @@ export const Upcoming = () => {
   });
 
   useEffect(() => {
-    dispatch(getAllTasks());
+    dispatch(getAllTasks({}));
   }, []);
 
   return (

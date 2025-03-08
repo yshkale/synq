@@ -9,9 +9,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { CheckCircle2, TagIcon, TagsIcon } from "lucide-react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export const LabelSelector = (props: any) => {
-  const [labels, setLabels] = useState(["concept", "planning", "important"]);
+  const userLabels = useSelector((state: any) => state.tasks?.allTasks?.labels);
+  const [labels, setLabels] = useState([...userLabels]);
   const [newLabel, setNewLabel] = useState("");
 
   const handleLabelSelection = (checked: boolean, label: string) => {
@@ -53,22 +55,28 @@ export const LabelSelector = (props: any) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        {labels?.map((label, index) => {
-          return (
-            <DropdownMenuCheckboxItem
-              key={index}
-              className="font-semibold text-neutral-600 text-xs"
-              checked={props.value?.includes(label)}
-              onCheckedChange={(checked) =>
-                handleLabelSelection(checked, label)
-              }
-            >
-              <div className="flex items-center gap-1.5 ml-0.5">
-                <TagIcon className="text-lime-600" size={14} /> {label}
-              </div>
-            </DropdownMenuCheckboxItem>
-          );
-        })}
+        {labels?.length > 0 ? (
+          labels?.map((label, index) => {
+            return (
+              <DropdownMenuCheckboxItem
+                key={index}
+                className="font-semibold text-neutral-600 text-xs"
+                checked={props.value?.includes(label)}
+                onCheckedChange={(checked) =>
+                  handleLabelSelection(checked, label)
+                }
+              >
+                <div className="flex items-center gap-1.5 ml-0.5">
+                  <TagIcon className="text-lime-600" size={14} /> {label}
+                </div>
+              </DropdownMenuCheckboxItem>
+            );
+          })
+        ) : (
+          <span className="text-center text-xs flex justify-center py-1 text-neutral-600">
+            no active labels
+          </span>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

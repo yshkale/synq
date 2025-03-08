@@ -82,7 +82,7 @@ const slice = createSlice({
     },
     //
     handleSearchInput: (state, action: PayloadAction<string>) => {
-      const normalizedQuery = action.payload?.toLowerCase()?.trim();
+      const normalizedQuery = action.payload;
       state.searchQuery = normalizedQuery;
     },
   },
@@ -161,7 +161,7 @@ const slice = createSlice({
   },
 });
 
-export const getAllTasks = createAction(Actions.getAllTasks);
+export const getAllTasks = createAction<any>(Actions.getAllTasks);
 export const createTask = createAction<TaskPayload>(Actions.createTask);
 export const updateTask = createAction<any>(Actions.updateTask);
 export const getTask = createAction<any>(Actions.getTask);

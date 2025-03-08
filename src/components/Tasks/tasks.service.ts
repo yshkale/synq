@@ -10,9 +10,13 @@ export interface TaskPayload {
   dueDate?: string;
 }
 
-export const fetchTasks = async () => {
+export const fetchTasks = async ({ project }: any) => {
   try {
-    const apiUrl = `${import.meta.env.VITE_API_URL}/tasks/get-all-tasks`;
+    const queryParams = project ? `project=${project}` : "";
+    const apiUrl = `${import.meta.env.VITE_API_URL}/tasks/get-all-tasks/${
+      queryParams ? `?${queryParams}` : ""
+    }`;
+
     const authToken = Cookies.get("authToken");
 
     const response = await fetch(apiUrl, {

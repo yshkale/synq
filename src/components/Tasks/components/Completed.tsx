@@ -13,7 +13,7 @@ export const Completed = () => {
   const tasksCompleted = tasks?.filter((task: any) => task.completed);
 
   useEffect(() => {
-    dispatch(getAllTasks());
+    dispatch(getAllTasks({}));
   }, []);
 
   return (

@@ -9,6 +9,8 @@ import {
 } from "../tasks.slice";
 import { format, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
+import { dueDateColorExtractor } from "@/helper/dueDateColorExtractor";
+import { cn } from "@/lib/utils";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const TaskOverview = (props: any) => {
@@ -39,6 +41,8 @@ export const TaskOverview = (props: any) => {
     );
   };
 
+  const dueDateColor = dueDateColorExtractor(props.dueDate);
+
   return (
     <div
       key={props.id}
@@ -57,8 +61,8 @@ export const TaskOverview = (props: any) => {
         <p className="text-sm text-neutral-600">{props?.description}</p>
 
         <p className="flex items-center space-x-1 pt-2 text-red-600">
-          <CalendarFoldIcon size={14} />
-          <span className="text-xs pt-0.5">{dueDate}</span>
+          <CalendarFoldIcon size={14} className={cn(dueDateColor)} />
+          <span className={cn("text-xs pt-0.5", dueDateColor)}>{dueDate}</span>
         </p>
       </div>
     </div>

@@ -6,7 +6,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useDispatch, useSelector } from "react-redux";
-import { handleSearchInput, triggerSearchDialog } from "../Tasks/tasks.slice";
+import {
+  handleSearchInput,
+  setGetTaskId,
+  triggerSearchDialog,
+  triggerShowEditDialog,
+} from "../Tasks/tasks.slice";
 import { SearchIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
@@ -33,13 +38,13 @@ export const SearchDialog = () => {
           ]
             .filter(Boolean) // Remove undefined/null values
             .some((field: any) =>
-              field.toLowerCase().includes(searchQuery.toLowerCase())
+              field.toLowerCase().includes(searchQuery?.toLowerCase()?.trim())
             ) // ✅ Make sure to return this!
       );
 
       setSearchResults(results || []);
     } else {
-      setSearchResults(allTasks || []); // ✅ Show all tasks when search is empty
+      setSearchResults([]); // ✅ Show all tasks when search is empty
     }
   }, [searchQuery, allTasks]);
 
@@ -53,6 +58,12 @@ export const SearchDialog = () => {
 
   const handleSearch = (e: any) => {
     dispatch(handleSearchInput(e.target.value));
+  };
+
+  const handleSearchResultClick = (taskId: string) => {
+    dispatch(setGetTaskId(taskId));
+    dispatch(triggerShowEditDialog(true));
+    dispatch(triggerSearchDialog(false));
   };
 
   return (
@@ -70,9 +81,11 @@ export const SearchDialog = () => {
           </DialogTitle>
         </DialogHeader>
 
-        {/* <DialogDescription className="w-full text-center text-sm py-4 text-neutral-500">
-          No recent searches
-        </DialogDescription> */}
+        {searchQuery === "" && (
+          <p className="w-full text-center text-sm py-2 text-neutral-500">
+            search your workspace...
+          </p>
+        )}
 
         {searchResults?.length > 0 &&
           searchResults?.map((result: any, index: number) => {
@@ -81,6 +94,7 @@ export const SearchDialog = () => {
               <div
                 key={index}
                 className="cursor-pointer mx-4 flex space-x-4 justify-between items-center pt-1 pb-5 border-b border-neutral-200"
+                onClick={() => handleSearchResultClick(result._id)}
               >
                 <div>
                   <h3 className="font-semibold text-neutral-800">

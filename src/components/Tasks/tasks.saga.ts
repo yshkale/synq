@@ -20,28 +20,31 @@ export const Actions = {
 };
 
 function* getAllTasksSaga() {
-  yield takeLatest(Actions.getAllTasks, function* (): Generator<any> {
-    try {
-      yield put({
-        type: Actions.getAllTasks + ActionState.PENDING,
-        payload: {},
-      });
+  yield takeLatest(
+    Actions.getAllTasks,
+    function* (action: PayloadAction<any>): Generator<any> {
+      try {
+        yield put({
+          type: Actions.getAllTasks + ActionState.PENDING,
+          payload: {},
+        });
 
-      const data = yield call(async () => {
-        return fetchTasks();
-      });
+        const data = yield call(async () => {
+          return fetchTasks(action.payload);
+        });
 
-      yield put({
-        type: Actions.getAllTasks + ActionState.FULFILLED,
-        payload: data,
-      });
-    } catch (err) {
-      yield put({
-        type: Actions.getAllTasks + ActionState.REJECTED,
-        payload: err,
-      });
+        yield put({
+          type: Actions.getAllTasks + ActionState.FULFILLED,
+          payload: data,
+        });
+      } catch (err) {
+        yield put({
+          type: Actions.getAllTasks + ActionState.REJECTED,
+          payload: err,
+        });
+      }
     }
-  });
+  );
 }
 
 function* createTaskSaga() {

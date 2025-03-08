@@ -64,7 +64,7 @@ export const AddTaskDialog = () => {
 
   useEffect(() => {
     if (createTaskApiStatus === AsyncState.FULFILLED) {
-      dispatch(getAllTasks());
+      dispatch(getAllTasks({}));
       dispatch(triggerAddTaskDialog(false));
     }
   }, [createTaskApiStatus]);

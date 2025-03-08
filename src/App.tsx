@@ -10,6 +10,7 @@ import { useAuth } from "./context/AuthContext";
 import { Today } from "./components/Tasks/components/Today";
 import { Upcoming } from "./components/Tasks/components/Upcoming";
 import { Completed } from "./components/Tasks/components/Completed";
+import { ProjectView } from "./components/Tasks/components/ProjectView";
 
 export const App = () => {
   const { userToken } = useAuth();
@@ -28,6 +29,7 @@ export const App = () => {
                   <Route path="/today" element={<Today />} />
                   <Route path="/upcoming" element={<Upcoming />} />
                   <Route path="/completed" element={<Completed />} />
+                  <Route path="/project/:name" element={<ProjectView />} />
                   {/* Redirect any other paths to inbox */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
