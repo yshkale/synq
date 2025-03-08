@@ -116,7 +116,7 @@ export const AppSidebar = () => {
           {allTasksApiStatus === AsyncState.FULFILLED ? (
             <p className="font-semibold text-sm">{userName}</p>
           ) : (
-            <Skeleton className="w-full h-6" />
+            <Skeleton className="w-24 h-5" />
           )}
         </div>
       </SidebarHeader>

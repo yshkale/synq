@@ -7,7 +7,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { BoxIcon, CheckCircle2, TerminalIcon } from "lucide-react";
+import {
+  BoxIcon,
+  CheckCircle2,
+  LucideCircleDotDashed,
+  TerminalIcon,
+} from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -46,6 +51,15 @@ export const ProjectSelector = (props: any) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
+        {projects?.length > 0 && (
+          <DropdownMenuItem
+            className="font-semibold text-neutral-600 text-xs"
+            onClick={() => props.handleAddTaskData("project", "")}
+          >
+            <LucideCircleDotDashed className="text-neutral-600" /> no project
+          </DropdownMenuItem>
+        )}
+
         {projects?.length > 0 ? (
           projects?.map((project: string, index: number) => {
             return (
@@ -59,7 +73,7 @@ export const ProjectSelector = (props: any) => {
             );
           })
         ) : (
-          <span className="text-center text-xs flex justify-center py-1 text-neutral-600">
+          <span className="text-center text-xs flex justify-center py-2 text-neutral-600">
             no active projects
           </span>
         )}
