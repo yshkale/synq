@@ -10,8 +10,8 @@ import {
 import {
   BoxIcon,
   CheckCircle2,
-  LucideCircleDotDashed,
-  TerminalIcon,
+  CircleSlash,
+  FolderRootIcon,
 } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -53,10 +53,10 @@ export const ProjectSelector = (props: any) => {
 
         {projects?.length > 0 && (
           <DropdownMenuItem
-            className="font-semibold text-neutral-600 text-xs"
+            className="font-semibold text-neutral-400 text-xs"
             onClick={() => props.handleAddTaskData("project", "")}
           >
-            <LucideCircleDotDashed className="text-neutral-600" /> no project
+            <CircleSlash className="text-neutral-400" /> No project
           </DropdownMenuItem>
         )}
 
@@ -68,7 +68,7 @@ export const ProjectSelector = (props: any) => {
                 className="font-semibold text-neutral-600 text-xs"
                 onClick={() => props.handleAddTaskData("project", project)}
               >
-                <TerminalIcon className="text-blue-600" /> {project}
+                <FolderRootIcon className="text-blue-600" /> {project}
               </DropdownMenuItem>
             );
           })

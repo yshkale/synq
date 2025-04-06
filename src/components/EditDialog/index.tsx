@@ -145,7 +145,7 @@ export const EditDialog = () => {
           <div className="mt-4 w-full -space-y-2">
             <DialogTitle className="min-h-fit w-full">
               <textarea
-                className="mb-3 break-words resize-none w-full focus-visible:outline-none placeholder:text-lg font-semibold overflow-hidden leading-tight p-0"
+                className="mb-3 break-words resize-none w-full focus-visible:outline-none placeholder:text-lg font-semibold overflow-hidden leading-tight p-0 text-neutral-800"
                 placeholder="Title"
                 value={userTaskData?.title}
                 onChange={(e) => handleAddTaskData("title", e.target.value)}

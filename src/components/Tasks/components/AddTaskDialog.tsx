@@ -75,7 +75,7 @@ export const AddTaskDialog = () => {
         <div className="flex flex-col space-y-3 px-6 pt-6 pb-5">
           <DialogTitle>
             <input
-              className="w-full focus-visible:outline-none placeholder:text-lg font-semibold"
+              className="w-full focus-visible:outline-none placeholder:text-lg font-semibold text-neutral-800"
               placeholder="Title"
               value={createTaskUserData?.title || ""}
               onChange={(e) => handleAddTaskData("title", e.target.value)}
