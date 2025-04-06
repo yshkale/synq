@@ -6,11 +6,16 @@ import { TaskOverview } from "./TaskOverview";
 import { getAllTasks } from "../tasks.slice";
 import { useEffect } from "react";
 import { DoYoga } from "./DoYoga";
+import { AsyncState } from "@/helper/constants";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Upcoming = () => {
   const dispatch = useDispatch();
 
   const tasks = useSelector((state: any) => state.tasks.allTasks?.tasks);
+  const allTasksApiStatus = useSelector(
+    (state: any) => state.tasks?.tasksApiStatus
+  );
 
   const tasksUpcoming = tasks?.filter((task: any) => {
     if (!task.dueDate) return false;
@@ -36,7 +41,8 @@ export const Upcoming = () => {
           </p>
         </div>
 
-        {tasksUpcoming?.length > 0 ? (
+        {allTasksApiStatus === AsyncState.FULFILLED &&
+        tasksUpcoming?.length > 0 ? (
           <div className="py-8 flex flex-col space-y-4">
             {tasksUpcoming?.map((task: any) => {
               return (
@@ -51,8 +57,13 @@ export const Upcoming = () => {
               );
             })}
           </div>
-        ) : (
+        ) : allTasksApiStatus === AsyncState.FULFILLED &&
+          tasksUpcoming?.length === 0 ? (
           <DoYoga />
+        ) : (
+          allTasksApiStatus === AsyncState.PENDING && (
+            <Skeleton className="w-full h-48 mt-8" />
+          )
         )}
       </section>
     </main>

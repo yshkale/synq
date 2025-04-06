@@ -38,7 +38,12 @@ function* loginUserSaga() {
       } catch (err) {
         yield put({
           type: Actions.loginUser + ActionState.REJECTED,
-          payload: err,
+          payload: {
+            message:
+              err instanceof Error
+                ? err.message
+                : "Unknown error occurred. Please try again later!",
+          },
         });
       }
     }
@@ -68,7 +73,12 @@ function* signupUserSaga() {
       } catch (err) {
         yield put({
           type: Actions.signupUser + ActionState.REJECTED,
-          payload: err,
+          payload: {
+            message:
+              err instanceof Error
+                ? err.message
+                : "Something went wrong. Please try again later!",
+          },
         });
       }
     }

@@ -12,7 +12,6 @@ export interface SignupPayload {
 export const loginUser = async (payload: LoginPayload) => {
   try {
     const apiUrl = `${import.meta.env.VITE_API_URL}/users/login`;
-
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
@@ -21,13 +20,15 @@ export const loginUser = async (payload: LoginPayload) => {
       body: JSON.stringify(payload),
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-      throw new Error("Error logging user in.");
+      const errorMessage =
+        responseData?.message || responseData?.error || "Error logging user in";
+      throw new Error(errorMessage);
     }
 
-    const responseJson = await response.json();
-
-    return responseJson;
+    return responseData;
   } catch (err) {
     console.error("Login error:", err);
     throw err;
@@ -46,9 +47,12 @@ export const signupUser = async (payload: SignupPayload) => {
       body: JSON.stringify(payload),
     });
 
-    if (!response.ok) throw new Error("Error signing up user!");
-
     const responseJson = await response.json();
+
+    if (!response.ok)
+      throw new Error(
+        responseJson?.message || "Something went wrong, please try again later!"
+      );
 
     return responseJson;
   } catch (err) {

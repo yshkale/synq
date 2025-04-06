@@ -53,7 +53,7 @@ export const AppSidebar = () => {
   const { logout } = useAuth();
 
   const userName = useSelector(
-    (state: any) => state.tasks.allTasks?.user?.name
+    (state: any) => state.users.userData?.user?.name
   );
 
   const items = [
@@ -79,9 +79,10 @@ export const AppSidebar = () => {
     },
   ];
 
-  const allTasksApiStatus = useSelector(
-    (state: any) => state.tasks?.tasksApiStatus
+  const getUserDataApiStatus = useSelector(
+    (state: any) => state.users?.userDataApiStatus
   );
+
   const projects = useSelector((state: any) => state.tasks?.allTasks?.projects);
 
   const handleMenuClick = (url: string) => {
@@ -113,7 +114,7 @@ export const AppSidebar = () => {
             src={`https://avatar.vercel.sh/${userName}`}
             className="w-6 h-6 rounded-full"
           />
-          {allTasksApiStatus === AsyncState.FULFILLED ? (
+          {getUserDataApiStatus === AsyncState.FULFILLED ? (
             <p className="font-semibold text-sm">{userName}</p>
           ) : (
             <Skeleton className="w-24 h-5" />

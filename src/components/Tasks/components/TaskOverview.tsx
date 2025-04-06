@@ -1,7 +1,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { CalendarFoldIcon } from "lucide-react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setGetTaskId,
   triggerShowEditDialog,
@@ -11,16 +11,10 @@ import { format, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import { dueDateColorExtractor } from "@/helper/dueDateColorExtractor";
 import { cn } from "@/lib/utils";
-import { AsyncState } from "@/helper/constants";
-import { Skeleton } from "@/components/ui/skeleton";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const TaskOverview = (props: any) => {
   const dispatch = useDispatch();
-
-  const allTasksApiStatus = useSelector(
-    (state: any) => state.tasks.tasksApiStatus
-  );
 
   const [isCompleted, setIsCompleted] = useState(props.status);
   useEffect(() => {
@@ -51,34 +45,30 @@ export const TaskOverview = (props: any) => {
 
   return (
     <div>
-      {allTasksApiStatus === AsyncState.FULFILLED ? (
+      <div
+        key={props.id}
+        className="flex items-start space-x-3 border-b border-neutral-200 px-2 pb-3 cursor-pointer"
+      >
+        <Checkbox
+          className="mt-1 rounded-full data-[state=checked]:bg-orange-600 data-[state=checked]:border-orange-600"
+          checked={isCompleted}
+          onCheckedChange={handleCheckedChange}
+        />
         <div
-          key={props.id}
-          className="flex items-start space-x-3 border-b border-neutral-200 px-2 pb-3 cursor-pointer"
+          className="flex flex-col gap-0 w-full"
+          onClick={() => handleOnClick(props.id)}
         >
-          <Checkbox
-            className="mt-1 rounded-full data-[state=checked]:bg-orange-600 data-[state=checked]:border-orange-600"
-            checked={isCompleted}
-            onCheckedChange={handleCheckedChange}
-          />
-          <div
-            className="flex flex-col gap-0 w-full"
-            onClick={() => handleOnClick(props.id)}
-          >
-            <h3 className="font-semibold text-neutral-800">{props.title}</h3>
-            <p className="text-sm text-neutral-600">{props?.description}</p>
+          <h3 className="font-semibold text-neutral-800">{props.title}</h3>
+          <p className="text-sm text-neutral-600">{props?.description}</p>
 
-            <p className="flex items-center space-x-1 pt-2 text-red-600">
-              <CalendarFoldIcon size={14} className={cn(dueDateColor)} />
-              <span className={cn("text-xs pt-0.5", dueDateColor)}>
-                {dueDate}
-              </span>
-            </p>
-          </div>
+          <p className="flex items-center space-x-1 pt-2 text-red-600">
+            <CalendarFoldIcon size={14} className={cn(dueDateColor)} />
+            <span className={cn("text-xs pt-0.5", dueDateColor)}>
+              {dueDate}
+            </span>
+          </p>
         </div>
-      ) : (
-        <Skeleton className="w-full h-20" />
-      )}
+      </div>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import createSagaMiddleware from "redux-saga";
 import { rootSaga } from "./sagas";
 import { AuthReducer } from "./Auth/auth.slice";
 import { TasksReducer } from "@/components/Tasks/tasks.slice";
+import { UsersReducer } from "./User/users.slice";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -12,6 +13,7 @@ const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
   auth: AuthReducer,
   tasks: TasksReducer,
+  users: UsersReducer,
 });
 
 export const store = configureStore({

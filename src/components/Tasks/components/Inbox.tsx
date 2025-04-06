@@ -5,11 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllTasks } from "../tasks.slice";
 import { DoYoga } from "./DoYoga";
+import { AsyncState } from "@/helper/constants";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Inbox = () => {
   const dispatch = useDispatch();
 
   const allTasks = useSelector((state: any) => state.tasks.allTasks?.tasks);
+  const allTasksApiStatus = useSelector(
+    (state: any) => state.tasks?.tasksApiStatus
+  );
 
   useEffect(() => {
     dispatch(getAllTasks({}));
@@ -26,7 +31,7 @@ export const Inbox = () => {
           </p>
         </div>
 
-        {allTasks?.length > 0 ? (
+        {allTasksApiStatus === AsyncState.FULFILLED && allTasks?.length > 0 ? (
           <div className="py-8 flex flex-col space-y-4">
             {allTasks?.map((task: any) => {
               return (
@@ -41,8 +46,13 @@ export const Inbox = () => {
               );
             })}
           </div>
-        ) : (
+        ) : allTasksApiStatus === AsyncState.FULFILLED &&
+          allTasks?.length === 0 ? (
           <DoYoga />
+        ) : (
+          allTasksApiStatus === AsyncState.PENDING && (
+            <Skeleton className="w-full h-48 mt-8" />
+          )
         )}
       </section>
     </main>

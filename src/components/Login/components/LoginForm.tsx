@@ -71,7 +71,12 @@ export const LoginForm = () => {
           <CardHeader className="text-neutral-800 flex text-left px-2 space-y-1">
             <p className="font-semibold text-neutral-600">
               Login to
-              <span className="text-orange-600 font-bold px-1.5">Synq</span>
+              <span
+                className="text-orange-600 font-bold px-1.5 cursor-pointer"
+                onClick={() => navigate("/")}
+              >
+                Synq
+              </span>
             </p>
             <p className="text-sm text-neutral-500">
               Enter your email below to login to your account

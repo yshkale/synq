@@ -12,6 +12,7 @@ const initialState: any = {
 
   loginApiResponse: null,
   loginApiStatus: AsyncState.IDLE,
+  loginErrorResponse: null,
 
   //signup
   signupUserData: {
@@ -23,6 +24,7 @@ const initialState: any = {
 
   signupApiResponse: null,
   signupApiStatus: AsyncState.IDLE,
+  signupErrorResponse: null,
 };
 
 const slice = createSlice({
@@ -65,9 +67,13 @@ const slice = createSlice({
         state.loginApiStatus = AsyncState.FULFILLED;
       }
     );
-    builder.addCase(Actions.loginUser + AsyncState.REJECTED, (state) => {
-      state.loginApiStatus = AsyncState.REJECTED;
-    });
+    builder.addCase(
+      Actions.loginUser + AsyncState.REJECTED,
+      (state, action: PayloadAction<any>) => {
+        state.loginApiStatus = AsyncState.REJECTED;
+        state.loginErrorResponse = action.payload;
+      }
+    );
 
     //signup builders
     builder.addCase(Actions.signupUser + AsyncState.PENDING, (state) => {
@@ -80,9 +86,13 @@ const slice = createSlice({
         state.signupApiStatus = AsyncState.FULFILLED;
       }
     );
-    builder.addCase(Actions.signupUser + AsyncState.REJECTED, (state) => {
-      state.signupApiStatus = AsyncState.REJECTED;
-    });
+    builder.addCase(
+      Actions.signupUser + AsyncState.REJECTED,
+      (state, action: PayloadAction<any>) => {
+        state.signupApiStatus = AsyncState.REJECTED;
+        state.signupErrorResponse = action.payload;
+      }
+    );
   },
 });
 
