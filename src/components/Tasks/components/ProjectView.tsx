@@ -21,7 +21,7 @@ export const ProjectView = () => {
   }, [name]);
 
   return (
-    <main className="flex justify-center items-center pt-20 mr-20">
+    <main className="flex justify-center items-center pt-20 lg:mr-20 mx-6 lg:mx-0">
       <section className="w-full max-w-xl">
         <h1 className="text-2xl font-semibold text-neutral-500">{name}</h1>
         <div className="flex items-center space-x-1.5 pt-1">

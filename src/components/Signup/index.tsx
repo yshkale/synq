@@ -22,7 +22,7 @@ export const Signup = () => {
     });
   }, [signupApiStatus, error, toast]);
   return (
-    <main className="flex">
+    <main className="flex flex-col lg:flex-row">
       <Banner />
       <SignupForm />
     </main>

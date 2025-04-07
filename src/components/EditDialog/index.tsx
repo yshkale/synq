@@ -140,8 +140,8 @@ export const EditDialog = () => {
 
   return (
     <Dialog defaultOpen={true} onOpenChange={handleOpenChange}>
-      <DialogContent className="p-0 w-5/6 max-w-2xl">
-        <DialogHeader className="p-6 border-b border-neutral-100 flex flex-row justify-between">
+      <DialogContent className="p-0 lg:w-5/6 max-w-2xl">
+        <DialogHeader className="p-6 border-b border-neutral-100 flex lg:flex-row justify-between">
           <div className="mt-4 w-full -space-y-2">
             <DialogTitle className="min-h-fit w-full">
               <textarea
@@ -177,24 +177,26 @@ export const EditDialog = () => {
             </DialogDescription>
           </div>
 
-          <div className="flex flex-col justify-center gap-4 pt-4 border-l border-neutral-200 pl-6">
+          <div className="flex flex-col justify-center lg:gap-4 pt-4 lg:border-l border-neutral-200 lg:pl-6">
             <TaskStatus
               className="mb-3"
               status={userTaskData?.completed}
               handleAddTaskData={handleAddTaskData}
             />
-            <PrioritySelector
-              value={userTaskData?.priority}
-              handleAddTaskData={handleAddTaskData}
-            />
-            <ProjectSelector
-              value={userTaskData?.project}
-              handleAddTaskData={handleAddTaskData}
-            />
-            <LabelSelector
-              value={userTaskData?.labels}
-              handleAddTaskData={handleAddTaskData}
-            />
+            <div className="flex lg:flex-col space-x-2 lg:space-x-0 mt-4 lg:mt-0 lg:gap-3">
+              <PrioritySelector
+                value={userTaskData?.priority}
+                handleAddTaskData={handleAddTaskData}
+              />
+              <ProjectSelector
+                value={userTaskData?.project}
+                handleAddTaskData={handleAddTaskData}
+              />
+              <LabelSelector
+                value={userTaskData?.labels}
+                handleAddTaskData={handleAddTaskData}
+              />
+            </div>
             <DueDateSelector
               value={userTaskData?.dueDate}
               className="mt-3"
@@ -202,7 +204,7 @@ export const EditDialog = () => {
             />
           </div>
         </DialogHeader>
-        <DialogFooter className="flex items-center sm:justify-between px-6 pb-4">
+        <DialogFooter className="flex flex-row-reverse items-center justify-between lg:justify-between px-6 pb-4">
           <Button
             variant="secondary"
             className="text-red-600 border border-neutral-100"

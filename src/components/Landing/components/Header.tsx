@@ -12,7 +12,10 @@ export const Header = () => {
         <Button variant={"secondary"} onClick={() => navigate("/login")}>
           Login
         </Button>
-        <Button className="bg-orange-600" onClick={() => navigate("/signup")}>
+        <Button
+          className="bg-orange-600 hidden lg:block"
+          onClick={() => navigate("/signup")}
+        >
           Start Organizing
         </Button>
       </div>

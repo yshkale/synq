@@ -40,7 +40,7 @@ export const PrioritySelector = (props: any) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-0.5 text-xs text-neutral-600 border border-neutral-200 bg-neutral-100 rounded-md px-2 py-1">
+      <DropdownMenuTrigger className="w-20 lg:w-full flex items-center gap-0.5 text-xs text-neutral-600 border border-neutral-200 bg-neutral-100 rounded-md px-2 py-1">
         {priority?.icon} {priority && capitalizeFirstLetter(priority.label)}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="ml-6">

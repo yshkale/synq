@@ -1,7 +1,7 @@
 export const Banner = () => {
   return (
-    <section className="h-screen w-1/2 bg-orange-600 text-neutral-50 px-12 py-60 flex flex-col justify-center gap-12">
-      <h2 className="text-6xl font-bold">
+    <section className="w-full lg:h-screen lg:w-1/2 bg-orange-600 text-neutral-50 px-8 py-16 lg:px-12 lg:py-60 flex flex-col lg:justify-center gap-6 lg:gap-12">
+      <h2 className="text-2xl lg:text-6xl font-bold">
         Stop Letting Tasks Pile Up — We Got Your Back, Every Step of the Way!
       </h2>
 

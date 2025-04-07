@@ -103,8 +103,8 @@ export const SignupForm = () => {
   console.log(signupStatus);
 
   return (
-    <section className="px-10 py-6 w-1/2 h-screen">
-      <div className="flex justify-end">
+    <section className="lg:px-10 py-6 w-full lg:w-1/2 lg:h-screen">
+      <div className="lg:flex justify-end hidden">
         <Button
           variant={"secondary"}
           className="bg-neutral-200"
@@ -114,8 +114,11 @@ export const SignupForm = () => {
         </Button>
       </div>
 
-      <div className="flex items-center justify-center h-5/6">
-        <form className="w-2/5" onSubmit={(e) => handleSignup(e)}>
+      <div className="flex items-center justify-center h-5/6 pt-8 lg:pt-0">
+        <form
+          className="w-full px-12 lg:px-0 lg:w-2/5"
+          onSubmit={(e) => handleSignup(e)}
+        >
           <div className="text-center space-y-1">
             <p className="font-semibold text-neutral-800">
               Create your account
@@ -127,6 +130,7 @@ export const SignupForm = () => {
 
           <div className="flex flex-col items-center justify-center space-y-3 mt-8">
             <Input
+              className="placeholder:text-sm lg:placeholder:text-base"
               name="name"
               placeholder="Name"
               value={signupName}
@@ -134,6 +138,7 @@ export const SignupForm = () => {
               required
             />
             <Input
+              className="placeholder:text-sm lg:placeholder:text-base"
               type="email"
               name="email"
               placeholder="Email"
@@ -142,6 +147,7 @@ export const SignupForm = () => {
               required
             />
             <Input
+              className="placeholder:text-sm lg:placeholder:text-base"
               type="password"
               name="password"
               placeholder="Password"
@@ -150,6 +156,7 @@ export const SignupForm = () => {
               required
             />
             <Input
+              className="placeholder:text-sm lg:placeholder:text-base"
               name="confirm-password"
               placeholder="Confirm Password"
               value={signupConfirmPassword}
