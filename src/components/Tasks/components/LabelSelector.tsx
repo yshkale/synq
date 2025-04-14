@@ -35,7 +35,7 @@ export const LabelSelector = (props: any) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="w-24 lg:w-full pl-3 flex items-center gap-1 text-xs text-neutral-600 border border-neutral-200 bg-neutral-100 rounded-md px-2 py-1">
+      <DropdownMenuTrigger className="w-24 lg:w-fit pl-3 flex items-center gap-1 text-xs text-neutral-600 border border-neutral-200 bg-neutral-100 rounded-md px-2 py-1">
         <TagsIcon size={14} /> Label{" "}
         {props.value?.length > 0 && `(${props.value?.length})`}
       </DropdownMenuTrigger>

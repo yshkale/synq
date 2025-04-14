@@ -30,7 +30,7 @@ export const ProjectSelector = (props: any) => {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger
-        className="w-20 lg:w-full flex items-center gap-1.5 text-xs text-neutral-600 border border-neutral-200 bg-neutral-100 rounded-md px-2 py-1"
+        className="w-20 lg:w-fit flex items-center gap-1.5 text-xs text-neutral-600 border border-neutral-200 bg-neutral-100 rounded-md px-2 py-1"
         onClick={() => setOpen(!open)}
       >
         <BoxIcon size={14} /> {props.value || "Project"}
