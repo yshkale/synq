@@ -80,6 +80,11 @@ const slice = createSlice({
       state.deleteTaskResponse = null;
       state.deleteTaskApiStatus = AsyncState.IDLE;
     },
+    resetGetTask: (state) => {
+      state.getTaskId = null;
+      state.getTaskResponse = null;
+      state.getTaskApiStatus = AsyncState.IDLE;
+    },
     //
     handleSearchInput: (state, action: PayloadAction<string>) => {
       const normalizedQuery = action.payload;
@@ -178,6 +183,7 @@ export const {
   resetUpdateTask,
   resetDeleteTask,
   handleSearchInput,
+  resetGetTask,
 } = slice.actions;
 
 export const TasksReducer = slice.reducer;

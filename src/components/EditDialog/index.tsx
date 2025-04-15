@@ -14,6 +14,7 @@ import {
   getAllTasks,
   getTask,
   resetDeleteTask,
+  resetGetTask,
   resetUpdateTask,
   triggerShowEditDialog,
   updateTask,
@@ -55,6 +56,8 @@ export const EditDialog = () => {
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
+      dispatch(resetUpdateTask());
+      dispatch(resetGetTask());
       dispatch(triggerShowEditDialog(false));
     }
   };
@@ -147,9 +150,17 @@ export const EditDialog = () => {
     <Dialog defaultOpen={true} onOpenChange={handleOpenChange}>
       <DialogContent className="p-0 lg:w-5/6 max-w-2xl">
         {getTaskStatus === AsyncState.PENDING ? (
-          <div className="flex justify-center items-center p-20">
-            <Loader2 className="h-8 w-8 animate-spin text-orange-600" />
-          </div>
+          <>
+            <DialogHeader>
+              <DialogTitle className="sr-only">Loading</DialogTitle>
+              <DialogDescription className="sr-only">
+                Loading task
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex justify-center items-center p-20">
+              <Loader2 className="h-8 w-8 animate-spin text-orange-600" />
+            </div>
+          </>
         ) : (
           <>
             <DialogHeader className="p-6 border-b border-neutral-100 flex lg:flex-row justify-between">
