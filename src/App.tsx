@@ -11,6 +11,7 @@ import { Today } from "./components/Tasks/components/Today";
 import { Upcoming } from "./components/Tasks/components/Upcoming";
 import { Completed } from "./components/Tasks/components/Completed";
 import { ProjectView } from "./components/Tasks/components/ProjectView";
+import { AccountSettings } from "./components/AccountSettings";
 
 export const App = () => {
   const { userToken } = useAuth();
@@ -30,6 +31,10 @@ export const App = () => {
                   <Route path="/upcoming" element={<Upcoming />} />
                   <Route path="/completed" element={<Completed />} />
                   <Route path="/project/:name" element={<ProjectView />} />
+                  <Route
+                    path="/account-settings"
+                    element={<AccountSettings />}
+                  />
                   {/* Redirect any other paths to inbox */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>

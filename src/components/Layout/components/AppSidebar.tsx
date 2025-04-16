@@ -106,6 +106,10 @@ export const AppSidebar = () => {
     navigate(`/project/${project}`);
   };
 
+  const handleAccountClick = () => {
+    navigate("/account-settings");
+  };
+
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-neutral-200">
@@ -200,7 +204,7 @@ export const AppSidebar = () => {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleAccountClick}>
                   <User2 />
                   <span>Account</span>
                 </DropdownMenuItem>

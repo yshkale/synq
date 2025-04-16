@@ -100,8 +100,6 @@ export const SignupForm = () => {
     }
   }, [authToken, login, navigate]);
 
-  console.log(signupStatus);
-
   return (
     <section className="lg:px-10 py-6 w-full lg:w-1/2 lg:h-screen">
       <div className="lg:flex justify-end hidden">

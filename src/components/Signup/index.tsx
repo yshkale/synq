@@ -18,7 +18,8 @@ export const Signup = () => {
   useEffect(() => {
     if (signupApiStatus !== AsyncState.REJECTED) return;
     toast({
-      title: error,
+      description: error,
+      variant: "destructive",
     });
   }, [signupApiStatus, error, toast]);
   return (

@@ -90,6 +90,20 @@ const slice = createSlice({
       const normalizedQuery = action.payload;
       state.searchQuery = normalizedQuery;
     },
+    //
+    resetCreateTaskStates: (state) => {
+      state.createTaskUserData = {
+        completed: false,
+        title: null,
+        description: null,
+        priority: null,
+        project: null,
+        labels: [],
+        dueDate: null,
+      };
+      state.createTaskResponse = null;
+      state.createTaskApiStatus = AsyncState.IDLE;
+    },
   },
   extraReducers(builder) {
     //get all tasks
@@ -184,6 +198,7 @@ export const {
   resetDeleteTask,
   handleSearchInput,
   resetGetTask,
+  resetCreateTaskStates,
 } = slice.actions;
 
 export const TasksReducer = slice.reducer;

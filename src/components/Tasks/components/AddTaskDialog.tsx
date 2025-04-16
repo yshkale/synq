@@ -11,6 +11,7 @@ import {
   addTaskUserData,
   createTask,
   getAllTasks,
+  resetCreateTaskStates,
   triggerAddTaskDialog,
 } from "../tasks.slice";
 import { Button } from "@/components/ui/button";
@@ -66,6 +67,7 @@ export const AddTaskDialog = () => {
     if (createTaskApiStatus === AsyncState.FULFILLED) {
       dispatch(getAllTasks({}));
       dispatch(triggerAddTaskDialog(false));
+      dispatch(resetCreateTaskStates());
     }
   }, [createTaskApiStatus]);
 

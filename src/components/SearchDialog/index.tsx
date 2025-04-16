@@ -48,8 +48,6 @@ export const SearchDialog = () => {
     }
   }, [searchQuery, allTasks]);
 
-  console.log(searchResults);
-
   const handleOpenChange = (open: boolean) => {
     if (!open) {
       dispatch(triggerSearchDialog(false));
