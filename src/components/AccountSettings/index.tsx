@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { AsyncState } from "@/helper/constants";
 import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 export const AccountSettings = () => {
   const dispatch = useDispatch();
@@ -159,16 +160,22 @@ export const AccountSettings = () => {
             Discard
           </Button>
           <Button
-            className="bg-orange-600 hover:bg-orange-500"
+            className="bg-orange-600 hover:bg-orange-500 w-36"
             disabled={
-              userDataLocal?.name === userData?.name &&
-              userDataLocal?.email === userData?.email &&
-              userDataLocal?.newPassword === "" &&
-              userDataLocal?.oldPassword === ""
+              (userDataLocal?.name === userData?.name &&
+                userDataLocal?.email === userData?.email &&
+                userDataLocal?.newPassword === null &&
+                userDataLocal?.oldPassword === null) ||
+              updateUserDataApiStatus === AsyncState.PENDING ||
+              updateUserDataApiStatus === AsyncState.FULFILLED
             }
             onClick={handleSaveChanges}
           >
-            Save changes
+            {updateUserDataApiStatus === AsyncState.PENDING ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              "Save changes"
+            )}
           </Button>
         </div>
       </section>
