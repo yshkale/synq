@@ -14,7 +14,7 @@ SYNQ is a task management web application built using modern technologies and be
 
 ## 📌 Features
 
-- Login / Register (with JWT)
+- Login / Sign up (with JWT)
 - Add / Edit / Delete tasks
 - Mark tasks as complete/incomplete
 - Filter tasks by status
